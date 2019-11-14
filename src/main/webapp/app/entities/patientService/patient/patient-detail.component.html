@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="patient">
+            <h2><span>Patient</span> {{patient.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Patient Id</span></dt>
+                <dd>
+                    <span>{{patient.patientId}}</span>
+                </dd>
+                <dt><span>Is Regular</span></dt>
+                <dd>
+                    <span>{{patient.isRegular}}</span>
+                </dd>
+                <dt><span>Department</span></dt>
+                <dd>
+                    <div *ngIf="patient.departmentId">
+                        <a [routerLink]="['/department', patient.departmentId, 'view']">{{patient.departmentName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/patient', patient.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

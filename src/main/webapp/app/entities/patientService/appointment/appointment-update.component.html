@@ -1,0 +1,96 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-appointment-heading">Create or edit a Appointment</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_patientStatus">Patient Status</label>
+                    <select class="form-control" name="patientStatus" formControlName="patientStatus" id="field_patientStatus">
+                        <option value="INPATIENT">INPATIENT</option>
+                        <option value="OUTPATIENT">OUTPATIENT</option>
+                    </select>
+                    <div *ngIf="editForm.get('patientStatus').invalid && (editForm.get('patientStatus').dirty || editForm.get('patientStatus').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('patientStatus').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_diseaseIdentified">Disease Identified</label>
+                    <input type="text" class="form-control" name="diseaseIdentified" id="field_diseaseIdentified"
+                           formControlName="diseaseIdentified"/>
+                    <div *ngIf="editForm.get('diseaseIdentified').invalid && (editForm.get('diseaseIdentified').dirty || editForm.get('diseaseIdentified').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('diseaseIdentified').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cureSuggested">Cure Suggested</label>
+                    <input type="text" class="form-control" name="cureSuggested" id="field_cureSuggested"
+                           formControlName="cureSuggested"/>
+                    <div *ngIf="editForm.get('cureSuggested').invalid && (editForm.get('cureSuggested').dirty || editForm.get('cureSuggested').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('cureSuggested').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_testsSuggested">Tests Suggested</label>
+                    <input type="text" class="form-control" name="testsSuggested" id="field_testsSuggested"
+                           formControlName="testsSuggested"/>
+                    <div *ngIf="editForm.get('testsSuggested').invalid && (editForm.get('testsSuggested').dirty || editForm.get('testsSuggested').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('testsSuggested').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_appointmentSchedule">Appointment Schedule</label>
+                    <select class="form-control" id="field_appointmentSchedule" name="appointmentSchedule" formControlName="appointmentScheduleId">
+                        <option *ngIf="!editForm.get('appointmentScheduleId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appointmentScheduleOption.id" *ngFor="let appointmentScheduleOption of appointmentschedules; trackBy: trackAppointmentScheduleById">{{appointmentScheduleOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('appointmentScheduleId').invalid && (editForm.get('appointmentScheduleId').dirty || editForm.get('appointmentScheduleId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('appointmentScheduleId').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_bill">Bill</label>
+                    <select class="form-control" id="field_bill" name="bill" formControlName="billId">
+                        <option *ngIf="!editForm.get('billId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="billOption.id" *ngFor="let billOption of bills; trackBy: trackBillById">{{billOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('billId').invalid && (editForm.get('billId').dirty || editForm.get('billId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('billId').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

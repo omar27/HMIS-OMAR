@@ -1,0 +1,93 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-in-patient-heading">Create or edit a In Patient</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_admitDate">Admit Date</label>
+                    <div class="input-group">
+                        <input id="field_admitDate" type="text" class="form-control" name="admitDate" ngbDatepicker  #admitDateDp="ngbDatepicker" formControlName="admitDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="admitDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('admitDate').invalid && (editForm.get('admitDate').dirty || editForm.get('admitDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('admitDate').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dischargeDate">Discharge Date</label>
+                    <div class="input-group">
+                        <input id="field_dischargeDate" type="text" class="form-control" name="dischargeDate" ngbDatepicker  #dischargeDateDp="ngbDatepicker" formControlName="dischargeDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dischargeDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('dischargeDate').invalid && (editForm.get('dischargeDate').dirty || editForm.get('dischargeDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dischargeDate').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_room">Room</label>
+                    <select class="form-control" id="field_room" name="room" formControlName="roomId">
+                        <option *ngIf="!editForm.get('roomId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="roomOption.id" *ngFor="let roomOption of rooms; trackBy: trackRoomById">{{roomOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('roomId').invalid && (editForm.get('roomId').dirty || editForm.get('roomId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('roomId').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_suggestedBy">Suggested By</label>
+                    <select class="form-control" id="field_suggestedBy" name="suggestedBy" formControlName="suggestedById">
+                        <option *ngIf="!editForm.get('suggestedById').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="staffOption.id" *ngFor="let staffOption of staff; trackBy: trackStaffById">{{staffOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('suggestedById').invalid && (editForm.get('suggestedById').dirty || editForm.get('suggestedById').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('suggestedById').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_patient">Patient</label>
+                    <select class="form-control" id="field_patient" name="patient" formControlName="patientId">
+                        <option *ngIf="!editForm.get('patientId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="patientOption.id" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('patientId').invalid && (editForm.get('patientId').dirty || editForm.get('patientId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('patientId').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

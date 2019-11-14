@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appointment">
+            <h2><span>Appointment</span> {{appointment.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Patient Status</span></dt>
+                <dd>
+                    <span>{{appointment.patientStatus}}</span>
+                </dd>
+                <dt><span>Disease Identified</span></dt>
+                <dd>
+                    <span>{{appointment.diseaseIdentified}}</span>
+                </dd>
+                <dt><span>Cure Suggested</span></dt>
+                <dd>
+                    <span>{{appointment.cureSuggested}}</span>
+                </dd>
+                <dt><span>Tests Suggested</span></dt>
+                <dd>
+                    <span>{{appointment.testsSuggested}}</span>
+                </dd>
+                <dt><span>Appointment Schedule</span></dt>
+                <dd>
+                    <div *ngIf="appointment.appointmentScheduleId">
+                        <a [routerLink]="['/appointment-schedule', appointment.appointmentScheduleId, 'view']">{{appointment.appointmentScheduleId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Bill</span></dt>
+                <dd>
+                    <div *ngIf="appointment.billId">
+                        <a [routerLink]="['/bill', appointment.billId, 'view']">{{appointment.billId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/appointment', appointment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="staffWorkingSchedule">
+            <h2><span>Staff Working Schedule</span> {{staffWorkingSchedule.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{staffWorkingSchedule.description}}</span>
+                </dd>
+                <dt><span>Staff</span></dt>
+                <dd>
+                    <div *ngIf="staffWorkingSchedule.staffId">
+                        <a [routerLink]="['/staff', staffWorkingSchedule.staffId, 'view']">{{staffWorkingSchedule.staffId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Working Schedule</span></dt>
+                <dd>
+                    <div *ngIf="staffWorkingSchedule.workingScheduleId">
+                        <a [routerLink]="['/working-schedule', staffWorkingSchedule.workingScheduleId, 'view']">{{staffWorkingSchedule.workingScheduleDay}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/staff-working-schedule', staffWorkingSchedule.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

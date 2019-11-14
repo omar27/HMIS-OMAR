@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-staff-working-schedule-heading">Create or edit a Staff Working Schedule</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_staff">Staff</label>
+                    <select class="form-control" id="field_staff" name="staff" formControlName="staffId">
+                        <option *ngIf="!editForm.get('staffId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="staffOption.id" *ngFor="let staffOption of staff; trackBy: trackStaffById">{{staffOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('staffId').invalid && (editForm.get('staffId').dirty || editForm.get('staffId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('staffId').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_workingSchedule">Working Schedule</label>
+                    <select class="form-control" id="field_workingSchedule" name="workingSchedule" formControlName="workingScheduleId">
+                        <option *ngIf="!editForm.get('workingScheduleId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="workingScheduleOption.id" *ngFor="let workingScheduleOption of workingschedules; trackBy: trackWorkingScheduleById">{{workingScheduleOption.day}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('workingScheduleId').invalid && (editForm.get('workingScheduleId').dirty || editForm.get('workingScheduleId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('workingScheduleId').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

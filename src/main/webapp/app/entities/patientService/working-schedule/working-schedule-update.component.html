@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-working-schedule-heading">Create or edit a Working Schedule</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_day">Day</label>
+                    <select class="form-control" name="day" formControlName="day" id="field_day">
+                        <option value="MONDAY">MONDAY</option>
+                        <option value="TUESDAY">TUESDAY</option>
+                        <option value="WEDNESDAY">WEDNESDAY</option>
+                        <option value="THURSDAY">THURSDAY</option>
+                        <option value="FRIDAY">FRIDAY</option>
+                        <option value="SATURDAY">SATURDAY</option>
+                        <option value="SUNDAY">SUNDAY</option>
+                    </select>
+                    <div *ngIf="editForm.get('day').invalid && (editForm.get('day').dirty || editForm.get('day').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('day').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_isOff">Is Off</label>
+                    <input type="checkbox" class="form-control" name="isOff" id="field_isOff"
+                           formControlName="isOff"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_startTime">Start Time</label>
+                    <input type="text" class="form-control" name="startTime" id="field_startTime"
+                           formControlName="startTime"/>
+                    <div *ngIf="editForm.get('startTime').invalid && (editForm.get('startTime').dirty || editForm.get('startTime').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('startTime').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_end">End</label>
+                    <input type="text" class="form-control" name="end" id="field_end"
+                           formControlName="end"/>
+                    <div *ngIf="editForm.get('end').invalid && (editForm.get('end').dirty || editForm.get('end').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('end').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="staff">
+            <h2><span>Staff</span> {{staff.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Staff Type</span></dt>
+                <dd>
+                    <span>{{staff.staffType}}</span>
+                </dd>
+                <dt><span>Qualification</span></dt>
+                <dd>
+                    <span>{{staff.qualification}}</span>
+                </dd>
+                <dt><span>Joining Date</span></dt>
+                <dd>
+                    <span>{{staff.joiningDate}}</span>
+                </dd>
+                <dt><span>Experience</span></dt>
+                <dd>
+                    <span>{{staff.experience}}</span>
+                </dd>
+                <dt><span>Is Regular</span></dt>
+                <dd>
+                    <span>{{staff.isRegular}}</span>
+                </dd>
+                <dt><span>Department</span></dt>
+                <dd>
+                    <div *ngIf="staff.departmentId">
+                        <a [routerLink]="['/department', staff.departmentId, 'view']">{{staff.departmentName}}</a>
+                    </div>
+                </dd>
+                <dt><span>Job Details</span></dt>
+                <dd>
+                    <div *ngIf="staff.jobDetailsId">
+                        <a [routerLink]="['/job-details', staff.jobDetailsId, 'view']">{{staff.jobDetailsId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Staff Working Schedule</span></dt>
+                <dd>
+                    <div *ngIf="staff.staffWorkingScheduleId">
+                        <a [routerLink]="['/staff-working-schedule', staff.staffWorkingScheduleId, 'view']">{{staff.staffWorkingScheduleId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/staff', staff.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

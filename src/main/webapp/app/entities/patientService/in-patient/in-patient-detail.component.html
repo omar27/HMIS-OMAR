@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="inPatient">
+            <h2><span>In Patient</span> {{inPatient.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Admit Date</span></dt>
+                <dd>
+                    <span>{{inPatient.admitDate}}</span>
+                </dd>
+                <dt><span>Discharge Date</span></dt>
+                <dd>
+                    <span>{{inPatient.dischargeDate}}</span>
+                </dd>
+                <dt><span>Room</span></dt>
+                <dd>
+                    <div *ngIf="inPatient.roomId">
+                        <a [routerLink]="['/room', inPatient.roomId, 'view']">{{inPatient.roomId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Suggested By</span></dt>
+                <dd>
+                    <div *ngIf="inPatient.suggestedById">
+                        <a [routerLink]="['/staff', inPatient.suggestedById, 'view']">{{inPatient.suggestedById}}</a>
+                    </div>
+                </dd>
+                <dt><span>Patient</span></dt>
+                <dd>
+                    <div *ngIf="inPatient.patientId">
+                        <a [routerLink]="['/patient', inPatient.patientId, 'view']">{{inPatient.patientId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/in-patient', inPatient.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

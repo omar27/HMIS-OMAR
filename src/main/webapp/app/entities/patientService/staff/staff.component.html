@@ -1,0 +1,106 @@
+<div>
+    <h2 id="page-heading">
+        <span>Staff</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-staff" [routerLink]="['/staff/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+             Create Staff
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="staff?.length === 0">
+        <span>No staff found</span>
+    </div>
+    <div class="table-responsive" *ngIf="staff?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+             
+            <th scope="col"  jhiSortBy="staffType"><span>Staff Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="qualification"><span>Qualification</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="joiningDate"><span>Joining Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="experience"><span>Experience</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isRegular"><span>Is Regular</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="departmentName"><span>Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="jobDetailsId"><span>Job Details</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="staffWorkingScheduleId"><span>Staff Working Schedule</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let staff of staff ;trackBy: trackId">
+                <td>{{staff.staffType}}</td>
+                <td>{{staff.qualification}}</td>
+                <td>{{staff.joiningDate | date:'mediumDate'}}</td>
+                <td>{{staff.experience}}</td>
+                <td>{{staff.isRegular}}</td>
+                <td>
+                    <div *ngIf="staff.departmentId">
+                        <a [routerLink]="['/department', staff.departmentId , 'view' ]" >{{staff.departmentName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="staff.jobDetailsId">
+                        <a [routerLink]="['/job-details', staff.jobDetailsId , 'view' ]" >{{staff.jobDetailsId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="staff.staffWorkingScheduleId">
+                        <a [routerLink]="['/staff-working-schedule', staff.staffWorkingScheduleId , 'view' ]" >{{staff.staffWorkingScheduleId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/staff', staff.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline"></span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/staff', staff.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline"></span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/staff', { outlets: { popup: staff.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="staff?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

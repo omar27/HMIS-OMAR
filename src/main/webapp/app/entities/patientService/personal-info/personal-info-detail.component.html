@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="personalInfo">
+            <h2><span>Personal Info</span> {{personalInfo.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Cnic</span></dt>
+                <dd>
+                    <span>{{personalInfo.cnic}}</span>
+                </dd>
+                <dt><span>First Name</span></dt>
+                <dd>
+                    <span>{{personalInfo.firstName}}</span>
+                </dd>
+                <dt><span>Last Name</span></dt>
+                <dd>
+                    <span>{{personalInfo.lastName}}</span>
+                </dd>
+                <dt><span>Phone Number</span></dt>
+                <dd>
+                    <span>{{personalInfo.phoneNumber}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{personalInfo.email}}</span>
+                </dd>
+                <dt><span>Gender</span></dt>
+                <dd>
+                    <span>{{personalInfo.gender}}</span>
+                </dd>
+                <dt><span>Age</span></dt>
+                <dd>
+                    <span>{{personalInfo.age}}</span>
+                </dd>
+                <dt><span>Address</span></dt>
+                <dd>
+                    <span>{{personalInfo.address}}</span>
+                </dd>
+                <dt><span>City</span></dt>
+                <dd>
+                    <span>{{personalInfo.city}}</span>
+                </dd>
+                <dt><span>Entity Type</span></dt>
+                <dd>
+                    <span>{{personalInfo.entityType}}</span>
+                </dd>
+                <dt><span>Entity Id</span></dt>
+                <dd>
+                    <span>{{personalInfo.entityId}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/personal-info', personalInfo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

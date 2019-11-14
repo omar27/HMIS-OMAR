@@ -1,0 +1,160 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-bill-heading">Create or edit a Bill</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_doctorFee">Doctor Fee</label>
+                    <input type="number" class="form-control" name="doctorFee" id="field_doctorFee"
+                           formControlName="doctorFee" (blur)="calculateTotalBill()" />
+                    <div *ngIf="editForm.get('doctorFee').invalid && (editForm.get('doctorFee').dirty || editForm.get('doctorFee').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('doctorFee').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('doctorFee').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('doctorFee')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_medicineCharges">Medicine Charges</label>
+                    <input type="number" class="form-control" name="medicineCharges" id="field_medicineCharges"
+                           formControlName="medicineCharges" (blur)="calculateTotalBill()"/>
+                    <div *ngIf="editForm.get('medicineCharges').invalid && (editForm.get('medicineCharges').dirty || editForm.get('medicineCharges').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('medicineCharges').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('medicineCharges').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('medicineCharges')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_testsFee">Tests Fee</label>
+                    <input type="number" class="form-control" name="testsFee" id="field_testsFee"
+                           formControlName="testsFee" (blur)="calculateTotalBill()"/>
+                    <div *ngIf="editForm.get('testsFee').invalid && (editForm.get('testsFee').dirty || editForm.get('testsFee').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('testsFee').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('testsFee').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('testsFee')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_roomCharges">Room Charges</label>
+                    <input type="number" class="form-control" name="roomCharges" id="field_roomCharges"
+                           formControlName="roomCharges" (blur)="calculateTotalBill()"/>
+                    <div *ngIf="editForm.get('roomCharges').invalid && (editForm.get('roomCharges').dirty || editForm.get('roomCharges').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('roomCharges').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('roomCharges').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('roomCharges')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_otherCharges">Other Charges</label>
+                    <input type="number" class="form-control" name="otherCharges" id="field_otherCharges"
+                           formControlName="otherCharges" (blur)="calculateTotalBill()"/>
+                    <div *ngIf="editForm.get('otherCharges').invalid && (editForm.get('otherCharges').dirty || editForm.get('otherCharges').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('otherCharges').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('otherCharges').errors.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('otherCharges')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_totalBill">Total Bill</label>
+                    <input type="number" class="form-control" name="totalBill" id="field_totalBill"
+                           formControlName="totalBill" disabled/>
+                    <div *ngIf="editForm.get('totalBill').invalid && (editForm.get('totalBill').dirty || editForm.get('totalBill').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('totalBill').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('totalBill')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_paidStatus">Paid Status</label>
+                    <select class="form-control" name="paidStatus" formControlName="paidStatus" id="field_paidStatus">
+                        <option value="PAID">PAID</option>
+                        <option value="PENDING">PENDING</option>
+                    </select>
+                    <div *ngIf="editForm.get('paidStatus').invalid && (editForm.get('paidStatus').dirty || editForm.get('paidStatus').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('paidStatus').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_patient">Patient</label>
+                    <select class="form-control" id="field_patient" name="patient" formControlName="patientId">
+                        <option *ngIf="!editForm.get('patientId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="patientOption.id" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('patientId').invalid && (editForm.get('patientId').dirty || editForm.get('patientId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('patientId').errors.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
